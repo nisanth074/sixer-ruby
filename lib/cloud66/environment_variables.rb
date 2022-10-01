@@ -1,17 +1,17 @@
-class Cloud66
+class Sixer
   class EnvironmentVariables < ResourceCollection
     class << self
-      def retrieve(cloud66, stack_id, params = {})
-        resource_collection = new(cloud66, stack_id)
+      def retrieve(sixer, stack_id, params = {})
+        resource_collection = new(sixer, stack_id)
         resource_collection.retrieve(params)
       end
     end
 
     attr_reader :stack_id
 
-    def initialize(cloud66, stack_id, properties = {})
+    def initialize(sixer, stack_id, properties = {})
       @stack_id = stack_id
-      super(cloud66, properties)
+      super(sixer, properties)
     end
 
     def path
@@ -24,7 +24,7 @@ class Cloud66
 
     def next_page
       new_params = params.merge({ "page" => (page_number + 1) })
-      self.class.retrieve(cloud66, stack_id, new_params)
+      self.class.retrieve(sixer, stack_id, new_params)
     end
   end
 end

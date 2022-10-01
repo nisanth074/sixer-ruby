@@ -1,23 +1,23 @@
-class Cloud66
+class Sixer
   class Resource
     class << self
-      def retrieve(cloud66, id, params = {})
+      def retrieve(sixer, id, params = {})
         properties = { "id" => id }
-        new(cloud66, properties).retrieve(params)
+        new(sixer, properties).retrieve(params)
       end
     end
 
-    attr_reader :cloud66,
+    attr_reader :sixer,
                 :params,
                 :properties,
                 :response
 
-    def initialize(cloud66, properties = {})
-      @cloud66, @properties = cloud66, properties
+    def initialize(sixer, properties = {})
+      @sixer, @properties = sixer, properties
     end
 
     def retrieve(params = {})
-      @response = cloud66.get(path, params)
+      @response = sixer.get(path, params)
       @properties = JSON.parse(response.body)
       @params = params
       self

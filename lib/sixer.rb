@@ -7,15 +7,15 @@ require "pry"
 
 require "active_support/core_ext/string/inflections"
 
-require_relative "cloud66/resource"
-require_relative "cloud66/resource_collection"
-require_relative "cloud66/all_resources"
+require_relative "sixer/resource"
+require_relative "sixer/resource_collection"
+require_relative "sixer/all_resources"
 
-require_relative "cloud66/environment_variable"
-require_relative "cloud66/environment_variables"
-require_relative "cloud66/all_environment_variables"
+require_relative "sixer/environment_variable"
+require_relative "sixer/environment_variables"
+require_relative "sixer/all_environment_variables"
 
-class Cloud66
+class Sixer
   class Error < StandardError
     def context
       @context ||= {}
@@ -37,7 +37,7 @@ class Cloud66
   def get(path, params = {})
     response = HTTParty.get("#{base_url}#{path}", headers: get_headers, query: params)
     unless response.success?
-      e = Cloud66::UnsuccessfulResponse.new
+      e = Sixer::UnsuccessfulResponse.new
       e.context[:response] = response
       raise e
     end
@@ -50,7 +50,7 @@ class Cloud66
   end
 
   def base_url
-    "https://app.cloud66.com/api/3"
+    "https://app.sixer.com/api/3"
   end
 
   def authorization_headers

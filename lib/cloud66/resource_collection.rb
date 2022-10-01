@@ -1,10 +1,10 @@
-class Cloud66
+class Sixer
   class ResourceCollection < Resource
     include Enumerable
 
     class << self
-      def retrieve(cloud66, params = {})
-        resource_collection = new(cloud66)
+      def retrieve(sixer, params = {})
+        resource_collection = new(sixer)
         resource_collection.retrieve(params)
       end
     end
@@ -15,7 +15,7 @@ class Cloud66
 
     def each(&block)
       Array(properties["response"]).map do |resource_properties|
-        resource = resource_class.new(cloud66, resource_properties)
+        resource = resource_class.new(sixer, resource_properties)
         yield resource
       end
     end
@@ -46,7 +46,7 @@ class Cloud66
 
     def next_page
       new_params = params.merge({ "page" => (page_number + 1) })
-      self.class.retrieve(cloud66, new_params)
+      self.class.retrieve(sixer, new_params)
     end
   end
 end

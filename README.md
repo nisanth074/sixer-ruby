@@ -1,3 +1,3 @@
-# cloud66-ruby
+# sixer
 
-Ruby gem for [Cloud66 API](https://developers.cloud66.com/#introduction)
+Unofficial Ruby gem for [Cloud66 API](https://developers.cloud66.com/#introduction)

@@ -1,4 +1,4 @@
-class Cloud66
+class Sixer
   class EnvironmentVariable < Resource
     def key
       properties["key"]
