@@ -13,6 +13,8 @@ Gem::Specification.new do |s|
   s.summary       = "Unofficial gem for Cloud66 API"
   s.description   = "Unofficial gem for Cloud66 API https://developers.cloud66.com/#introduction"
 
+  s.license = "MIT"
+
   s.files = Dir["{lib}/**/*", "README.md"]
 
   s.add_dependency "httparty"
