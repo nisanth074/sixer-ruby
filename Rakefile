@@ -4,5 +4,5 @@ task :publish_to_rubygems do
 
   `gem build #{gem_name}.gemspec`
   require_relative "lib/#{gem_name}"
-  `gem push #{gem_name}-#{gem_name.capitalize.constantize::VERSION}.gem`
+  `gem push #{gem_name}-#{gem_name.capitalize.constantize::VERSION.sub('-alpha', '')}.pre.alpha.gem`
 end
