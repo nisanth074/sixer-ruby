@@ -41,3 +41,4 @@ end
 - Add support for more Cloud 66 API resources
 - Add ability to update a resource's properties
 - Add ability to create a resource
+- Add a CLI if it makes sense
