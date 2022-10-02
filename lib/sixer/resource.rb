@@ -1,26 +1,44 @@
 class Sixer
   class Resource
     class << self
-      def retrieve(sixer, id, params = {})
+      def retrieve(parent, id, params = {})
         properties = { "id" => id }
-        new(sixer, properties).retrieve(params)
+        new(parent, properties).retrieve(params)
       end
     end
 
-    attr_reader :sixer,
-                :params,
+    attr_reader :parent,
                 :properties,
+                :params,
                 :response
 
-    def initialize(sixer, properties = {})
-      @sixer, @properties = sixer, properties
+    def initialize(parent, properties = {})
+      @parent, @properties = parent, properties
     end
 
     def retrieve(params = {})
       @response = sixer.get(path, params)
       @properties = JSON.parse(response.body)
       @params = params
+      @retrieved = true
+
       self
+    end
+
+    def retrieve_unless_retrieved
+      retrieve unless @retrieved
+    end
+
+    def name
+      self.class.to_s.demodulized.underscore
+    end
+
+    def path
+      "#{parent.path}/#{name}/#{id}"
+    end
+
+    def sixer
+      parent.sixer
     end
   end
 end

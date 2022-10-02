@@ -3,17 +3,21 @@
 require "json"
 require "httparty"
 require "active_support"
-require "pry"
-
 require "active_support/core_ext/string/inflections"
+# require "pry"
 
 require_relative "sixer/resource"
 require_relative "sixer/resource_collection"
-require_relative "sixer/all_resources"
+require_relative "sixer/all"
 
-require_relative "sixer/environment_variable"
-require_relative "sixer/environment_variables"
-require_relative "sixer/all_environment_variables"
+resources = %w(
+  stack
+  environment_variable
+)
+resources.each do |resource|
+  require_relative "sixer/#{resource}"
+  require_relative "sixer/#{resource}_collection"
+end
 
 class Sixer
   class Error < StandardError
@@ -73,5 +77,13 @@ class Sixer
 
   def stack_env_vars(stack_id)
     EnvironmentVariables.new(self, stack_id)
+  end
+
+  def sixer
+    self
+  end
+
+  def path
+    ""
   end
 end

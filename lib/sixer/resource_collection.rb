@@ -3,8 +3,8 @@ class Sixer
     include Enumerable
 
     class << self
-      def retrieve(sixer, params = {})
-        resource_collection = new(sixer)
+      def retrieve(parent, params = {})
+        resource_collection = new(parent)
         resource_collection.retrieve(params)
       end
     end
@@ -13,21 +13,25 @@ class Sixer
       self.class.name.sub("Collection", "").singularize.constantize
     end
 
+    def name
+      self.class.demodulize.sub("Collection", "").pluralize.constantize
+    end
+
+    def path
+      parent.path + "/#{name}"
+    end
+
     def each(&block)
+      retrieve_unless_retrieved
+
       Array(properties["response"]).map do |resource_properties|
-        resource = resource_class.new(sixer, resource_properties)
+        resource = resource_class.new(parent, resource_properties)
         yield resource
       end
     end
 
-    def each_in_all_pages(&block)
-      each(&block)
-      return if last_page?
-      next_page.each_in_all_pages(&block)
-    end
-
     def all
-      AllResources.new(self)
+      All.new(self)
     end
 
     def each_in_all_pages(&block)
@@ -46,7 +50,7 @@ class Sixer
 
     def next_page
       new_params = params.merge({ "page" => (page_number + 1) })
-      self.class.retrieve(sixer, new_params)
+      self.class.retrieve(parent, new_params)
     end
   end
 end
